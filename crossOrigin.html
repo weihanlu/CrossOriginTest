@@ -2,29 +2,56 @@
 <html>
     <head>
         <title>Cross Origin Test</title>
+        <script>
+            function sendSimple(){
+                console.log("send simple")
+                // HEAD,GET,POST是CORS简单请求
+                var xhr = new XMLHttpRequest();
+                xhr.open('GET','http://127.0.0.1:8887',true);
+                xhr.send();
+                xhr.onreadystatechange = function(){
+                    // console.log("readyState changed")
+                }
+            }
+
+            function sendComplex(){
+                console.log("send complex")
+                //CORS非简单请求：需preflight
+                //fetch()返回一个Promise
+                fetch('http://127.0.0.1:8887',{
+                    method:'PUT',
+                    headers:{
+                        'X-Test-Cors':'1',
+                    }
+                })
+            }
+
+            function sendJsonp(){
+                console.log("send jsonp")
+                var jsonpScript = document.createElement("script")
+                jsonpScript.src = "http://127.0.0.1:8887?callback=handleResponse"
+                var headNode = document.getElementsByTagName('head')[0]
+                headNode.appendChild(jsonpScript)
+            }
+
+            function handleResponse(data){
+                console.log(data)
+            }
+
+        </script>
+        <!-- script,link,img标签无同源限制 -->
+        <!-- <script src='http://127.0.0.1:8887'></script> -->
+        <style>
+            
+        </style>
     </head>
     <body>
         <h1>Cross Origin Html</h1>
+        <button onclick="sendSimple()">CORS简单请求</button>
+        <button onclick="sendComplex()">CORS非简单请求</button>
+        <br/>
+        <button onclick="sendJsonp()">jsonp</button>
     </body>
-    <script>
-        //HEAD,GET,POST是CORS简单请求
-        // var xhr = new XMLHttpRequest();
-        // xhr.open('GET','http://127.0.0.1:8887',true);
-        // xhr.send();
-        // xhr.onreadystatechange = function(){
-        //     // console.log("readyState changed")
-        // }
-
-        //CORS非简单请求：需preflight
-        //fetch()返回一个Promise
-        fetch('http://127.0.0.1:8887',{
-            method:'PUT',
-            headers:{
-                'X-Test-Cors':'1',
-            }
-        })
-    </script>
-
-    <!-- script,link,img标签无同源限制 -->
-    <!-- <script src='http://127.0.0.1:8887'></script> -->
+    
+    
 </html>
