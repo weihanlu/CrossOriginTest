@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Cross Origin Test</title>
+    </head>
+    <body>
+        <h1>Cross Origin Html</h1>
+    </body>
+    <script>
+        //HEAD,GET,POST是CORS简单请求
+        // var xhr = new XMLHttpRequest();
+        // xhr.open('GET','http://127.0.0.1:8887',true);
+        // xhr.send();
+        // xhr.onreadystatechange = function(){
+        //     // console.log("readyState changed")
+        // }
+
+        //CORS非简单请求：需preflight
+        //fetch()返回一个Promise
+        fetch('http://127.0.0.1:8887',{
+            method:'PUT',
+            headers:{
+                'X-Test-Cors':'1',
+            }
+        })
+    </script>
+
+    <!-- script,link,img标签无同源限制 -->
+    <!-- <script src='http://127.0.0.1:8887'></script> -->
+</html>
