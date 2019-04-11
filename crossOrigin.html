@@ -50,6 +50,14 @@
                 })
             }
 
+            function sendGetJson(){
+                //实际原理等同于dataType为'jsonp'的ajax方法
+                //自动生成回调函数
+                $.getJSON('http://127.0.0.1:8887?callback=?',function(data){
+                    console.log(data)
+                })
+            }
+
             function handleResponse(data){
                 console.log(data)
             }
@@ -69,6 +77,7 @@
         <br/>
         <button onclick="sendJsonp()">jsonp</button>
         <button onclick="sendJQuery()">jQuery封装jsonp</button>
+        <button onclick="sendGetJson()">getJSON</button>
     </body>
     
     
