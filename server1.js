@@ -18,7 +18,6 @@ http.createServer(function(request, response){
     })
 
     var jsonpCallback = url.parse(request.url,true).query;
-    console.log(jsonpCallback)
     if(jsonpCallback.callback) {
         //jsop
         var jsonpData = '{"success":"jsonp"}'
@@ -27,7 +26,7 @@ http.createServer(function(request, response){
         response.write(")");
     }else{
         //cors
-        var normalData = "{success:normal}"
+        var normalData = '{"success":"normal"}'
         response.write(normalData)
     }
     response.end()
