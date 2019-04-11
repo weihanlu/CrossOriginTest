@@ -31,6 +31,7 @@
                 console.log("send jsonp")
                 //基础jsonp请求
                 //动态生成script标签，并添加src属性进行跨域请求
+                //传回的数据会作为javaScript脚本执行
                 var jsonpScript = document.createElement("script")
                 jsonpScript.src = "http://127.0.0.1:8887?callback=handleResponse"
                 var headNode = document.getElementsByTagName('head')[0]
@@ -40,6 +41,7 @@
             function sendJQuery(){
                 //jQuery将jsonp请求封装到AJAX中
                 //但实际原理仍然是动态生成script标签，只是语法糖而已
+                //AJAX的核心是通过XmlHttpRequest获取非本页内容，而jsonp的核心则是动态添加
                 //主要封装：自动生成回调函数（可配置），自动插入和删除script标签
                 $.ajax({
                     url:'http://127.0.0.1:8887',
@@ -65,6 +67,7 @@
 
         </script>
         <!-- script,link,img标签无同源限制 -->
+        <!-- 静态生成script标签 -->
         <!-- <script src='http://127.0.0.1:8887'></script> -->
         <style>
 
