@@ -26,8 +26,8 @@ http.createServer(function(request, response){
         response.write(")");
     }else{
         //cors
-        var normalData = '{"success":"normal"}'
-        response.write(normalData)
+        var corsData = '{"success":"cors"}'
+        response.write(corsData)
     }
     response.end()
 
