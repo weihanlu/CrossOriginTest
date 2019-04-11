@@ -1,4 +1,5 @@
 const http = require("http")
+const url = require("url")
 
 http.createServer(function(request, response){
     console.log('8887 request received', request.url)
@@ -15,7 +16,22 @@ http.createServer(function(request, response){
         'Access-Control-Max-Age':'1000' //有效期(s)内不需再次发送OPTIONS请求进行预检
 
     })
-    response.end('123')
+
+    var jsonpCallback = url.parse(request.url,true).query;
+    console.log(jsonpCallback)
+    if(jsonpCallback.callback) {
+        //jsop
+        var jsonpData = '{"success":"jsonp"}'
+        response.write(jsonpCallback.callback+"(");
+        response.write(jsonpData)
+        response.write(")");
+    }else{
+        //cors
+        var normalData = "{success:normal}"
+        response.write(normalData)
+    }
+    response.end()
+
 }).listen(8887)
 
 console.log('server1 listening on 8887')
